@@ -11,7 +11,9 @@ def pinv(a: _ArrayLike[Scalar], rcond: float = 1e-15) -> ndarray[Scalar]:
     ...
 
 
-def svd(a: _ArrayLike[Scalar], full_matrices: bool = True, compute_uv: bool = True
+def svd(a: _ArrayLike[Scalar],
+        full_matrices: bool = True,
+        compute_uv: bool = True
         ) -> Tuple[ndarray[Scalar], ndarray[Scalar], ndarray[Scalar]]:
     ...
 
@@ -19,5 +21,5 @@ def svd(a: _ArrayLike[Scalar], full_matrices: bool = True, compute_uv: bool = Tr
 def norm(x: _ArrayLike[Scalar],
          ord: Any = None,
          axis: Any = None,
-         keepdims: bool = False) -> Union[float, ndarray[float]]:
+         keepdims: bool = False) -> Union[float, ndarray[Scalar]]:
     ...

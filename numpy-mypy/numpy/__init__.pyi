@@ -438,7 +438,7 @@ class ndarray(_ArrayLike[_S], Generic[_S]):
 # Array creation routines
 #
 Scalar = Union[int, float]
-Listlike = Union[List, Tuple, ndarray, Scalar]
+# Listlike = Union[List, Tuple, ndarray, Scalar]
 # ndarray[Scalar] = Union[ndarray[int], ndarray[float]]
 
 def array(object: Any, dtype: Any=None, copy: bool=True,
