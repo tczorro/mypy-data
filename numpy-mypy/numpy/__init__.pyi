@@ -4,7 +4,7 @@ methods are provided.
 """
 
 from typing import (Any, Callable, Dict, Generic, Iterator, List, Optional, Sequence, Tuple, Type,
-                    TypeVar, Union)
+                    TypeVar, Union, overload)
 
 class dtype: ...
 _dtype = dtype
@@ -171,7 +171,7 @@ class _ArrayLike(Generic[_S]):
     def repeat(self, repeats: Union[int, Sequence[int]],
                axis: int=None) -> '_ArrayLike[_S]': ...
 
-    def reshape(self, newshape: ShapeType,
+    def reshape(self, *newshape: ShapeType,
                 order: str='C') -> '_ArrayLike[_S]': ...
 
     def resize(self, new_shape: ShapeType, refcheck: bool=True) -> None: ...
@@ -437,10 +437,14 @@ class ndarray(_ArrayLike[_S], Generic[_S]):
 #
 # Array creation routines
 #
+Scalar = Union[int, float]
+Listlike = Union[List, Tuple, ndarray, Scalar]
+# ndarray[Scalar] = Union[ndarray[int], ndarray[float]]
 
 def array(object: Any, dtype: Any=None, copy: bool=True,
           order: str=None, subok: bool=False,
           ndmin: int=0) -> ndarray[Any]: ...
+def arange(start: Scalar, stop: Scalar=0, step: Scalar=1, dtype: Any=None) -> ndarray[Scalar]:...
 def asarray(a: Any, dtype: DtypeType=None, order: str=None) -> ndarray[Any]: ...
 def asanyarray(a: Any, dtype: DtypeType=None, order: str=None) -> ndarray[Any]: ...  # TODO figure out a way to restrict the return type
 def asmatrix(data: Any, dtype: DtypeType=None) -> Any: ...  # TODO define matrix
@@ -468,3 +472,7 @@ def ones(shape: ShapeType, dtype: Optional[DtypeType]=..., order: str='C') -> nd
 def ones_like(a: Any, dtype: Any=None, order: str='K', subok: bool=True) -> ndarray[Any]: ...
 def zeros(shape: ShapeType, dtype: DtypeType=float, order: str='C') -> ndarray[Any]: ...
 def zeros_like(a: Any, dtype: Any=None, order: str='K', subok: bool=True) -> ndarray[Any]: ...
+def allclose(a: _ArrayLike[Scalar], b: _ArrayLike[Scalar], rtol: float=1e-05, atol: float=1e-08, equal_nan: bool=False): ...
+def dot(a: _ArrayLike[Scalar], b: _ArrayLike[Scalar],
+        out: ndarray[Scalar] = None) -> ndarray[Scalar]:
+    ...
